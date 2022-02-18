@@ -22,9 +22,8 @@ bot.start((ctx)=>{
 })
 
 bot.on('new_chat_members',ctx=>{
-    ctx.reply(`Hello ${ctx.from.first_name} \n❗Welcome to Vape Lovers❗  \n🌀🌀TRUSTED SELLER🌀🌀  \n■■■■■AUTHENTIC ■■■■■`)
+    ctx.reply(`Hello ${ctx.from.first_name} \n❗Welcome to Vape Lovers❗  \n🌀🌀TRUSTED SELLER🌀🌀  \n■■■■■AUTHENTIC ■■■■■`).catch("Something is wrong")
 })
-
 
 bot.hears('vlbotstart',ctx=>{
 
@@ -40,7 +39,7 @@ bot.hears('vlbotstart',ctx=>{
 
             setInterval(()=>{
                 ctx.telegram.sendMessage(ctx.chat.id , data[0].message ).catch('Something is wrong')
-            },1800000)
+            },1000*60*2)
 
         }
     })
@@ -71,9 +70,6 @@ bot.hears(/setvlbotmessage/gi,(ctx)=>{
         }
     })
 })
-
-
-
 
 
 
