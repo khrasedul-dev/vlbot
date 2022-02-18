@@ -39,7 +39,7 @@ bot.hears('vlbotstart',ctx=>{
 
             setInterval(()=>{
                 ctx.telegram.sendMessage(ctx.chat.id , data[0].message ).catch('Something is wrong')
-            },1000*60*2)
+            },1000*60*15)
 
         }
     })
