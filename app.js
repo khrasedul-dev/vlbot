@@ -1,4 +1,5 @@
 const fs = require('fs')
+const mongoose = require('mongoose')
 const {Telegraf , Composer} = require('micro-bot')
 
 const dbModel = require('./model')
