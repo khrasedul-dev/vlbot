@@ -39,35 +39,6 @@ bot.hears('vlbotstart',(ctx)=>{
 
 		ctx.telegram.sendMessage(ctx.chat.id , showTest ).catch('Something is wrong')
 
-
-		const findQuery = {
-			 id : postId
-		 }
-		dbModel.find(findQuery, (e,data)=>{
-			if (e) {
-				console.log(e)
-			 } else {
-				
-				const fdata = data[0].message
-				
-
-				fs.open('db.txt', 'w', function (err, file) {
-        				if (err) {
-            					console.log(err)
-       				 	}      					
-					fs.writeFile('db.txt', fdata, function (err) {
-              				  	if (err) throw err;
-               						ctx.reply("Your message sucessfully set").catch("Something is wrong")
-          					});
-      				 	}
-    				})
-
-				
-			}
-		})
-
-
-
         },1000*60*1)
     })
 
