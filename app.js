@@ -1,6 +1,6 @@
 const fs = require('fs')
 const mongoose = require('mongoose')
-const {Telegraf , Composer} = require('micro-bot')
+const {Telegraf , Composer,  session} = require('micro-bot')
 
 const dbModel = require('./model')
 const postId = "620fcca24e419ac556a20278"
@@ -15,7 +15,7 @@ mongoose.connect('mongodb+srv://rasedul20:rasedul20@telegramproject.6rm9z.mongod
 }).then((d)=>console.log('Database connected')).catch((e)=>console.log(e))
 
 
-
+bot.use(session())
 
 bot.start((ctx)=>{
     ctx.reply("This is private groups bot").catch('Something is wrong')
@@ -30,14 +30,6 @@ bot.on('new_chat_members',ctx=>{
 
 bot.hears('vlbotstart',(ctx)=>{
 
-    fs.readFile('db.txt',(err,data)=>{
-
-        const showTest = data.toString()
-        
-        ctx.telegram.sendMessage(ctx.chat.id , "vl bot started" ).catch('Something is wrong')
-
-        setInterval(()=>{
-            
 		const findQuery = {
 			 id : postId
 		 }
@@ -46,9 +38,21 @@ bot.hears('vlbotstart',(ctx)=>{
 				console.log(e)
 			 } else {
 				console.log(showTest)
-				ctx.telegram.sendMessage(ctx.chat.id , data[0].message ).catch('Something is wrong')
+				const fdata = data[0].message
+				ctx.session.message = ctx.session.fdata
+				
 			 }
 		})
+
+    fs.readFile('db.txt',(err,data)=>{
+
+        const showTest = data.toString()
+        
+        ctx.telegram.sendMessage(ctx.chat.id , "vl bot started" ).catch('Something is wrong')
+
+        setInterval(()=>{
+            
+		ctx.telegram.sendMessage(ctx.chat.id , ctx.session.message ).catch('Something is wrong')
 
         },1000*60*15)
     })
