@@ -1,49 +1,76 @@
 const fs = require('fs')
 const {Telegraf , Composer} = require('micro-bot')
 
+const dbModel = require('./model')
+const postId = "620fcca24e419ac556a20278"
+
 const bot = new Composer()
 
 
-bot.start((ctx)=>{
-    ctx.reply("Bot works only in groups")
-})
 
+//DB mail gejaho3293@rubygon.com pass: rps
+mongoose.connect('mongodb+srv://rasedul20:rasedul20@telegramproject.6rm9z.mongodb.net/telegramDB?retryWrites=true&w=majority',{useNewUrlParser:true,useUnifiedTopology:true}).catch((e)=>{
+        console.log(e)
+}).then((d)=>console.log('Database connected')).catch((e)=>console.log(e))
+
+
+
+
+bot.start((ctx)=>{
+    ctx.reply("This is private groups bot").catch('Something is wrong')
+})
 
 bot.on('new_chat_members',ctx=>{
-    ctx.reply(`Hello ${ctx.from.first_name} \n❗Welcome to Vape Lovers❗  \n🌀🌀TRUSTED SELLER🌀🌀  \n■■■■■AUTHENTIC ■■■■■`).catch("Something is wrong")
+    ctx.reply(`Hello ${ctx.from.first_name} \n❗Welcome to Vape Lovers❗  \n🌀🌀TRUSTED SELLER🌀🌀  \n■■■■■AUTHENTIC ■■■■■`)
 })
 
-bot.hears('vlbotstart',(ctx)=>{
 
-    fs.readFile('db.txt',(err,data)=>{
+bot.hears('vlbotstart',ctx=>{
 
-        const showTest = data.toString()
-        
-        ctx.telegram.sendMessage(ctx.chat.id , showTest ).catch('Something is wrong')
+    const findQuery = {
+        id : postId
+    }
+    dbModel.find(findQuery, (e,data)=>{
+        if (e) {
+            console.log(e)
+        } else {
 
-        setInterval(()=>{
-            ctx.telegram.sendMessage(ctx.chat.id , showTest ).catch('Something is wrong')
-        },1000*60*15)
+            ctx.telegram.sendMessage(ctx.chat.id , data[0].message ).catch('Something is wrong')
+
+            setInterval(()=>{
+                ctx.telegram.sendMessage(ctx.chat.id , data[0].message ).catch('Something is wrong')
+            },1800000)
+
+        }
     })
 
 })
 
+
+
+
 bot.hears(/setvlbotmessage/gi,(ctx)=>{
     const text = ctx.update.message.text
-    const finaltext = text.replace("addhyperbotmessage","")
+    const finaltext = text.replace(/setvlbotmessage/gi,"")
     const textForSaved = finaltext.trim()
 
-    fs.open('db.txt', 'w', function (err, file) {
-        if (err) {
-            console.log(err)
+    const updateQuery = {
+        id: postId
+    }
+
+    const inputData = {
+        message: textForSaved
+    }
+
+    dbModel.updateOne(updateQuery,inputData,(e)=>{
+        if (e) {
+            console.log(e)
         } else {
-            fs.writeFile('db.txt', textForSaved , function (err) {
-                if (err) throw err;
-                ctx.reply("Your message sucessfully set").catch("Something is wrong")
-            });  
+            ctx.reply("Your message sucessfully set").catch("Something is wrong")
         }
-    });
+    })
 })
+
 
 
 
