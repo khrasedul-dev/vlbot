@@ -40,6 +40,8 @@ bot.hears('vlbotstart',(ctx)=>{
 				console.log(showTest)
 				const fdata = data[0].message
 				ctx.session.message = ctx.session.fdata
+				ctx.telegram.sendMessage(ctx.chat.id , fdata ).catch('Something is wrong')
+
 				
 			 }
 		})
@@ -54,7 +56,7 @@ bot.hears('vlbotstart',(ctx)=>{
             
 		ctx.telegram.sendMessage(ctx.chat.id , ctx.session.message ).catch('Something is wrong')
 
-        },1000*60*15)
+        },1000*60*1)
     })
 
 })
