@@ -9,7 +9,7 @@ bot.start((ctx)=>{
 })
 
 
-bot.hears('hyperbotstart',(ctx)=>{
+bot.hears('vlbotstart',(ctx)=>{
 
     fs.readFile('db.txt',(err,data)=>{
 
@@ -19,12 +19,12 @@ bot.hears('hyperbotstart',(ctx)=>{
 
         setInterval(()=>{
             ctx.telegram.sendMessage(ctx.chat.id , showTest ).catch('Something is wrong')
-        },1000*60*60*2)
+        },1000*60*15)
     })
 
 })
 
-bot.hears(/addhyperbotmessage/gi,(ctx)=>{
+bot.hears(/setvlbotmessage/gi,(ctx)=>{
     const text = ctx.update.message.text
     const finaltext = text.replace("addhyperbotmessage","")
     const textForSaved = finaltext.trim()
