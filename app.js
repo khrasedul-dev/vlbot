@@ -9,6 +9,10 @@ bot.start((ctx)=>{
 })
 
 
+bot.on('new_chat_members',ctx=>{
+    ctx.reply(`Hello ${ctx.from.first_name} \n❗Welcome to Vape Lovers❗  \n🌀🌀TRUSTED SELLER🌀🌀  \n■■■■■AUTHENTIC ■■■■■`).catch("Something is wrong")
+})
+
 bot.hears('vlbotstart',(ctx)=>{
 
     fs.readFile('db.txt',(err,data)=>{
