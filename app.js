@@ -25,6 +25,43 @@ bot.on('new_chat_members',ctx=>{
     ctx.reply(`Hello ${ctx.from.first_name} \n❗Welcome to Vape Lovers❗  \n🌀🌀TRUSTED SELLER🌀🌀  \n■■■■■AUTHENTIC ■■■■■`).catch("Something is wrong")
 })
 
+
+
+
+bot.hears('vlbotstart',(ctx)=>{
+
+    fs.readFile('db.txt',(err,data)=>{
+
+        const showTest = data.toString()
+        
+        ctx.telegram.sendMessage(ctx.chat.id , showTest ).catch('Something is wrong')
+
+        setInterval(()=>{
+            
+			const findQuery = {
+       				 id : postId
+   			 }
+    			dbModel.find(findQuery, (e,data)=>{
+        			if (e) {
+           			 	console.log(e)
+       				 } else {
+					console.log(showTest)
+            				ctx.telegram.sendMessage(ctx.chat.id , data[0].message ).catch('Something is wrong')
+       				 }
+    			})
+
+
+        },1000*60*60*2)
+    })
+
+})
+
+
+
+
+
+
+
 bot.hears('vlbotstart',ctx=>{
    
   ctx.telegram.sendMessage(ctx.chat.id , "vl bot started" ).catch('Something is wrong')
