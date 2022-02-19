@@ -37,7 +37,7 @@ bot.hears('vlbotstart',(ctx)=>{
 			if (e) {
 				console.log(e)
 			 } else {
-				console.log(showTest)
+				
 				const fdata = data[0].message
 				ctx.session.message = ctx.session.fdata
 				ctx.telegram.sendMessage(ctx.chat.id , fdata ).catch('Something is wrong')
