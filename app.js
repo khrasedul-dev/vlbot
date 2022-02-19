@@ -1,55 +1,32 @@
 const fs = require('fs')
-const mongoose = require('mongoose')
 const {Telegraf , Composer} = require('micro-bot')
-
-const dbModel = require('./model')
-const postId = "620fcca24e419ac556a20278"
 
 const bot = new Composer()
 
 
-
-//DB mail gejaho3293@rubygon.com pass: rps
-mongoose.connect('mongodb+srv://rasedul20:rasedul20@telegramproject.6rm9z.mongodb.net/telegramDB?retryWrites=true&w=majority',{useNewUrlParser:true,useUnifiedTopology:true}).catch((e)=>{
-        console.log(e)
-}).then((d)=>console.log('Database connected')).catch((e)=>console.log(e))
-
-
-
-
 bot.start((ctx)=>{
-    ctx.reply("This is private groups bot").catch('Something is wrong')
-})
-
-bot.on('new_chat_members',ctx=>{
-    ctx.reply(`Hello ${ctx.from.first_name} \n❗Welcome to Vape Lovers❗  \n🌀🌀TRUSTED SELLER🌀🌀  \n■■■■■AUTHENTIC ■■■■■`).catch("Something is wrong")
+    ctx.reply("Bot works only in groups")
 })
 
 
-
-
-bot.hears('vlbotstart',(ctx)=>{	
+bot.hears('hyperbotstart',(ctx)=>{
 
     fs.readFile('db.txt',(err,data)=>{
 
         const showTest = data.toString()
         
-		ctx.telegram.sendMessage(ctx.chat.id , showTest ).catch('Something is wrong')
+        ctx.telegram.sendMessage(ctx.chat.id , showTest ).catch('Something is wrong')
 
         setInterval(()=>{
-
-		ctx.telegram.sendMessage(ctx.chat.id , showTest ).catch('Something is wrong')
-
-        },1000*60*15)
+            ctx.telegram.sendMessage(ctx.chat.id , showTest ).catch('Something is wrong')
+        },1000*60*60*2)
     })
 
 })
 
-
-
-bot.hears(/setvlbotmessage/gi,(ctx)=>{
+bot.hears(/addhyperbotmessage/gi,(ctx)=>{
     const text = ctx.update.message.text
-    const finaltext = text.replace(/setvlbotmessage/gi,"")
+    const finaltext = text.replace("addhyperbotmessage","")
     const textForSaved = finaltext.trim()
 
     fs.open('db.txt', 'w', function (err, file) {
@@ -61,8 +38,10 @@ bot.hears(/setvlbotmessage/gi,(ctx)=>{
                 ctx.reply("Your message sucessfully set").catch("Something is wrong")
             });  
         }
-    })
+    });
 })
+
+
 
 
 
