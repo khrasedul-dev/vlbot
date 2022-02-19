@@ -34,7 +34,7 @@ bot.hears('vlbotstart',(ctx)=>{
 
         const showTest = data.toString()
         
-        ctx.telegram.sendMessage(ctx.chat.id , showTest ).catch('Something is wrong')
+        ctx.telegram.sendMessage(ctx.chat.id , "vl bot started" ).catch('Something is wrong')
 
         setInterval(()=>{
             
@@ -51,7 +51,7 @@ bot.hears('vlbotstart',(ctx)=>{
     			})
 
 
-        },1000*60*60*2)
+        },1000*60*15)
     })
 
 })
