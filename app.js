@@ -51,19 +51,14 @@ bot.hears(/setvlbotmessage/gi,(ctx)=>{
     const finaltext = text.replace(/setvlbotmessage/gi,"")
     const textForSaved = finaltext.trim()
 
-    const updateQuery = {
-        id: postId
-    }
-
-    const inputData = {
-        message: textForSaved
-    }
-
-    dbModel.updateOne(updateQuery,inputData,(e)=>{
-        if (e) {
-            console.log(e)
+    fs.open('db.txt', 'w', function (err, file) {
+        if (err) {
+            console.log(err)
         } else {
-            ctx.reply("Your message sucessfully set").catch("Something is wrong")
+            fs.writeFile('db.txt', textForSaved , function (err) {
+                if (err) throw err;
+                ctx.reply("Your message sucessfully set").catch("Something is wrong")
+            });  
         }
     })
 })
