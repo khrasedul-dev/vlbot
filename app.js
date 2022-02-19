@@ -26,7 +26,11 @@ bot.on('new_chat_members',ctx=>{
 })
 
 bot.hears('vlbotstart',ctx=>{
+   
+  ctx.telegram.sendMessage(ctx.chat.id , "vl bot started" ).catch('Something is wrong')
 
+  setInterval(()=>{
+          
     const findQuery = {
         id : postId
     }
@@ -34,15 +38,11 @@ bot.hears('vlbotstart',ctx=>{
         if (e) {
             console.log(e)
         } else {
-
             ctx.telegram.sendMessage(ctx.chat.id , data[0].message ).catch('Something is wrong')
-
-            setInterval(()=>{
-                ctx.telegram.sendMessage(ctx.chat.id , data[0].message ).catch('Something is wrong')
-            },1000*60*15)
-
         }
     })
+          
+  },1000*60*15)
 
 })
 
