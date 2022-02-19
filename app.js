@@ -38,51 +38,22 @@ bot.hears('vlbotstart',(ctx)=>{
 
         setInterval(()=>{
             
-			const findQuery = {
-       				 id : postId
-   			 }
-    			dbModel.find(findQuery, (e,data)=>{
-        			if (e) {
-           			 	console.log(e)
-       				 } else {
-					console.log(showTest)
-            				ctx.telegram.sendMessage(ctx.chat.id , data[0].message ).catch('Something is wrong')
-       				 }
-    			})
-
+		const findQuery = {
+			 id : postId
+		 }
+		dbModel.find(findQuery, (e,data)=>{
+			if (e) {
+				console.log(e)
+			 } else {
+				console.log(showTest)
+				ctx.telegram.sendMessage(ctx.chat.id , data[0].message ).catch('Something is wrong')
+			 }
+		})
 
         },1000*60*15)
     })
 
 })
-
-
-
-
-
-
-
-bot.hears('vlbotstart',ctx=>{
-   
-  ctx.telegram.sendMessage(ctx.chat.id , "vl bot started" ).catch('Something is wrong')
-
-  setInterval(()=>{
-          
-    const findQuery = {
-        id : postId
-    }
-    dbModel.find(findQuery, (e,data)=>{
-        if (e) {
-            console.log(e)
-        } else {
-            ctx.telegram.sendMessage(ctx.chat.id , data[0].message ).catch('Something is wrong')
-        }
-    })
-          
-  },1000*60*15)
-
-})
-
 
 
 
